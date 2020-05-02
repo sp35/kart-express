@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			.col-md-4.col-md-offset-4
+				h1 Sign In
+				if hasErrors
+					.alert.alert-danger
+						for message in messages
+							p=message
+				form(action='/users/signin' method='post')
+					.form-group
+						label(for='email') E-Mail
+						input#email.form-control(type='text' name='email')
+					.form-group
+						label(for='password') Password
+						input#password.form-control(type='password' name='password')
+					input(type='hidden' name='_csrf' value=csrfToken)
+					button.btn.btn-primary(type='submit') Sign In
+				p Don't have an account? 
+				a(href='/users/signup') Sign up instead!

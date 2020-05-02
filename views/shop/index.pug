@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  .container
+    each product in products
+      .row
+        each pro in product
+          .col-sm-6.col-md-4
+            .thumbnail
+              img.img-responsive(src=pro.imagePath alt='...')
+              .caption
+                h3 #{pro.title}
+                p.description #{pro.description}
+                .clearfix
+                  .price.pull-left Rs #{pro.price}
+                  a.btn.btn-success.pull-right(href='/order/product/' + pro._id role='button') Order

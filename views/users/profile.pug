@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+	.container
+		h1 #{person.accType} Profile
+		hr
+		if person.accType == 'Shopper'
+			h4 Wallet - Rs #{person.wallet}
+		br
+		ul
+			li Name: #{person.user.name}
+			li Email: #{person.user.email}
+			li State: #{person.user.state}
+			li City: #{person.user.city}

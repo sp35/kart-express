@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  .container
+    a.btn.btn-primary(href='/order/view/recent/' role='button') Recent 
+    a.btn.btn-default(href='/order/view/past/' role='button') Past
+    each order in orders
+      .row
+        each ord in order
+          .col-sm-6.col-md-4
+            .thumbnail
+              img.img-responsive(src=ord.product.imagePath alt='...')
+              .caption
+                h3 #{ord.product.title}
+                p.description Orderd on #{ord.orderDateTime} By #{ord.shopper.user.name} - #{ord.shopper.user.city}, #{ord.shopper.user.state}
+                .clearfix
+                  .price.pull-left Rs #{ord.product.price}
+                  if status.past
+                    p.description Delivered On #{ord.deliveredDateTime}
+                  if status.recent
+                    if !ord.accepted
+                      p.description Cancellable until accepted
+                      a.btn.btn-danger.pull-right(href='/order/cancel/' + ord._id role='button') Cancel Order?
+                    if ord.accepted
+                      p.description Order accepted
+                    if ord.arrived
+                      p.description Arrived at Facility

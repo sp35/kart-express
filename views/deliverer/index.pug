@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  .container
+    a.btn.btn-primary(href='/' role='button') Home
+    a.btn.btn-default(href='/deliverer/view/accepted/' role='button') Accepted 
+    a.btn.btn-primary(href='/deliverer/view/arrived/' role='button') Arrived
+    a.btn.btn-default(href='/deliverer/view/delivered/' role='button') Delivered
+    each order in orders
+      .row
+        each ord in order
+          .col-sm-6.col-md-4
+            .thumbnail
+              img.img-responsive(src=ord.product.imagePath alt='...')
+              .caption
+                h3 #{ord.product.title}
+                p.description On #{ord.orderDateTime} From #{ord.shopper.user.name} - #{ord.shopper.user.city}, #{ord.shopper.user.state}
+                .clearfix
+                  .price.pull-left Rs #{ord.product.price}
+                  if status.accepted
+                    a.btn.btn-success.pull-right(href='/deliverer/mark-arrived/' + ord._id role='button') Mark Arrived
+                  else if status.arrived
+                    a.btn.btn-success.pull-right(href='/deliverer/mark-delivered/' + ord._id role='button') Mark Delivered
+                  else if status.delivered
+                    p.description On #{ord.deliveredDateTime} 
+                  else
+                    a.btn.btn-success.pull-right(href='/deliverer/accept/' + ord._id role='button') Accept Order
